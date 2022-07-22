@@ -1,0 +1,14 @@
+{
+  "name": "nodejs-module",
+  "version": "1.0.0",
+  "description": "NodeJS module of the SDS Full Stack course",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Jani Heinikoski",
+  "license": "ISC",
+  "devDependencies": {
+    "nodemon": "^2.0.19"
+  }
+}
