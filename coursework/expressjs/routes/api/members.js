@@ -1,7 +1,7 @@
 const express = require("express");
 const router = express.Router();
 const uuid = require("uuid");
-const members = require("../../Members");
+let members = require("../../Members");
 
 // Get all members
 router.get("/", (req, res) => {
@@ -34,6 +34,38 @@ router.post("/", (req, res) => {
     } else {
         members.push(newMember);
         res.json(members);
+    }
+});
+
+// Update a member
+router.put("/:id", (req, res) => {
+    let member = members.filter(
+        (mber) => mber.id === parseInt(req.params.id)
+    )[0];
+    if (member) {
+        members = members.map((elem) => {
+            if (elem === member) {
+                elem.name = req.body.name ? req.body.name : elem.name;
+                elem.email = req.body.email ? req.body.email : elem.email;
+            }
+            return elem;
+        });
+        res.json(members);
+    } else {
+        res.status(400).json({ msg: `no member with id ${req.params.id}` });
+    }
+});
+
+// Delete a member
+router.delete("/:id", (req, res) => {
+    let newMembers = members.filter(
+        (mber) => mber.id !== parseInt(req.params.id)
+    );
+    if (newMembers.length !== members.length) {
+        members = newMembers;
+        res.json(members);
+    } else {
+        res.status(400).json({ msg: `no member with id ${req.params.id}` });
     }
 });
 
