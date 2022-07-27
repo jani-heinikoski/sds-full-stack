@@ -9,6 +9,10 @@ const PORT = process.env.PORT || 3000;
 // Use the logger middleware
 // app.use(logger);
 
+// Body parser middleware
+app.use(express.json({ type: "application/json" })); // Content-Type of req must match application/json or it won't be parsed
+app.use(express.urlencoded({ extended: false }));
+
 // Serve static assets from the /public path
 app.use(express.static(path.join(__dirname, "public")));
 
