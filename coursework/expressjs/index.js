@@ -1,6 +1,7 @@
 const express = require("express");
 const path = require("path");
 const logger = require("./middleware/logger");
+const members = require("./Members");
 const { engine } = require("express-handlebars");
 
 const app = express();
@@ -15,7 +16,7 @@ app.set("view engine", "handlebars");
 
 // Homepage route
 app.get("/", (req, res) => {
-    res.render("index");
+    res.render("index", { title: "Members App", members: members });
 });
 
 // Body parser middleware
