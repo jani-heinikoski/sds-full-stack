@@ -1,16 +1,20 @@
+// Load env vars from .env file
 require("dotenv").config();
-const passport = require("passport");
 const express = require("express");
 const mongoose = require("mongoose");
 const path = require("path");
 const cors = require("cors");
+const passport = require("passport");
 
 const usersRouter = require("./routes/users");
 
+const initPassportJWTStrategy = require("./initPassportJWTStrategy");
+
 const app = express();
 const PORT = process.env.PORT || 3000;
-const MONGO_URL = process.env.MONGO_URL || "mongodb://localhost:27017/meanauth";
-const SECRET = process.env.SECRET || "secret";
+// Initialize passport
+app.use(passport.initialize());
+initPassportJWTStrategy(passport, process.env.SECRET);
 // Enable all CORS requests
 app.use(cors({ optionsSuccessStatus: 200 }));
 // JSON Body parsing, Content-Type of req must match application/json
@@ -24,9 +28,9 @@ app.get("/", (req, res) => {
     res.send("index");
 });
 // Connect to the MongoDB database and start the server after
-mongoose.connect(MONGO_URL).then(
+mongoose.connect(process.env.MONGO_URL).then(
     () => {
-        console.log(`Connected successfully to ${MONGO_URL}`);
+        console.log(`Connected successfully to ${process.env.MONGO_URL}`);
         app.listen(PORT, () => {
             console.log("Server started on port", PORT);
         });
