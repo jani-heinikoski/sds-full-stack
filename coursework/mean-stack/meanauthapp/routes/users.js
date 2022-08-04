@@ -27,7 +27,7 @@ router.post("/register", async (req, res) => {
             .status(400)
             .json({ success: false, msg: "Failed to register user." });
     }
-    return res.status(400).json({ success: true, msg: "User registered." });
+    return res.status(201).json({ success: true, msg: "User registered." });
 });
 
 router.post("/authenticate", async (req, res) => {

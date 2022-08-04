@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 
 import { ValidateService } from '../validate.service';
 import { FlashMessagesService } from 'flash-messages-angular';
+import { AuthService } from '../auth.service';
 
 import { User } from '../user';
 
@@ -15,7 +16,8 @@ export class RegisterComponent implements OnInit {
 
   constructor(
     private validateService: ValidateService,
-    private flashMessagesService: FlashMessagesService
+    private flashMessagesService: FlashMessagesService,
+    private authService: AuthService
   ) {}
 
   ngOnInit(): void {}
@@ -27,17 +29,36 @@ export class RegisterComponent implements OnInit {
     });
   }
 
-  onRegisterSubmit(): boolean {
+  private showFlashMessageSuccess(text: string) {
+    this.flashMessagesService.show(text, {
+      cssClass: 'alert-success',
+      timeout: 3000,
+    });
+  }
+
+  onRegisterSubmit(): void {
     if (!this.validateService.validateRegister(this.user)) {
       this.showFlashMessageAlert('Please fill in all fields');
-      return false;
     }
 
     if (!this.validateService.validateEmail(this.user.email)) {
       this.showFlashMessageAlert('Please fill a valid email');
-      return false;
     }
 
-    return true;
+    const onError = (err: any): void => {
+      console.error(err);
+      this.showFlashMessageAlert(
+        'Something went wrong, see console for more information.'
+      );
+    };
+
+    const onSuccess = (value: any): void => {
+      this.showFlashMessageSuccess('You are now registered and can log in!');
+    };
+
+    this.authService.registerUser(this.user).subscribe({
+      next: onSuccess,
+      error: onError,
+    });
   }
 }
