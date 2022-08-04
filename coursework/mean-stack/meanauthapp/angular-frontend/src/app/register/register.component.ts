@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
 
 import { ValidateService } from '../validate.service';
 import { FlashMessagesService } from 'flash-messages-angular';
@@ -17,7 +18,8 @@ export class RegisterComponent implements OnInit {
   constructor(
     private validateService: ValidateService,
     private flashMessagesService: FlashMessagesService,
-    private authService: AuthService
+    private authService: AuthService,
+    private router: Router
   ) {}
 
   ngOnInit(): void {}
@@ -34,15 +36,18 @@ export class RegisterComponent implements OnInit {
       cssClass: 'alert-success',
       timeout: 3000,
     });
+    this.router.navigate(['login']);
   }
 
   onRegisterSubmit(): void {
     if (!this.validateService.validateRegister(this.user)) {
       this.showFlashMessageAlert('Please fill in all fields');
+      return;
     }
 
     if (!this.validateService.validateEmail(this.user.email)) {
       this.showFlashMessageAlert('Please fill a valid email');
+      return;
     }
 
     const onError = (err: any): void => {
