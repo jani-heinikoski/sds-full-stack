@@ -1,24 +1,17 @@
 import { Injectable } from '@angular/core';
 
+import { User } from './user';
+
 @Injectable({
   providedIn: 'root',
 })
 export class ValidateService {
   constructor() {}
 
-  validateRegister(user: {
-    name?: String;
-    username?: String;
-    email?: String;
-    password?: String;
-  }): boolean {
-    let valid = true;
-    Object.values(user).forEach((val) => {
-      if (!val) {
-        valid = false;
-      }
-    });
-    return valid;
+  validateRegister(user: User): boolean {
+    return user.name && user.username && user.email && user.password
+      ? true
+      : false;
   }
 
   validateEmail(email?: String): boolean {
