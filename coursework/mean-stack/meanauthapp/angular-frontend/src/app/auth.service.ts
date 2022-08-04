@@ -9,8 +9,8 @@ import { User } from './user';
   providedIn: 'root',
 })
 export class AuthService {
-  authToken?: any;
-  user?: any;
+  private token?: string;
+  private user?: User;
 
   constructor(private http: HttpClient) {}
 
@@ -18,5 +18,21 @@ export class AuthService {
     return this.http.post('http://localhost:3000/users/register', user, {
       headers: new HttpHeaders({ 'Content-Type': 'application/json' }),
     });
+  }
+
+  authenticateUser(user: User): Observable<any> {
+    return this.http.post('http://localhost:3000/users/authenticate', user, {
+      headers: new HttpHeaders({ 'Content-Type': 'application/json' }),
+    });
+  }
+
+  storeUserData(user: User, token: string) {
+    this.user = user;
+    this.token = token;
+  }
+
+  logout() {
+    this.user = undefined;
+    this.token = undefined;
   }
 }
