@@ -36,7 +36,6 @@ export class RegisterComponent implements OnInit {
       cssClass: 'alert-success',
       timeout: 3000,
     });
-    this.router.navigate(['login']);
   }
 
   onRegisterSubmit(): void {
@@ -59,6 +58,7 @@ export class RegisterComponent implements OnInit {
 
     const onSuccess = (value: any): void => {
       this.showFlashMessageSuccess('You are now registered and can log in!');
+      this.router.navigate(['login']);
     };
 
     this.authService.registerUser(this.user).subscribe({
