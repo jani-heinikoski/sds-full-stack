@@ -1,0 +1,72 @@
+<nav class="navbar navbar-expand-lg bg-light mb-3">
+  <div class="container-fluid">
+    <a class="navbar-brand" routerLink="/">MEAN Auth App</a>
+    <button
+      class="navbar-toggler"
+      type="button"
+      data-bs-toggle="collapse"
+      data-bs-target="#navbarNavDropdown"
+      aria-controls="navbarNavDropdown"
+      aria-expanded="false"
+      aria-label="Toggle navigation"
+    >
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarNavDropdown">
+      <ul class="navbar-nav">
+        <li class="nav-item">
+          <a
+            class="nav-link"
+            routerLink="/"
+            routerLinkActive="active"
+            [routerLinkActiveOptions]="{ exact: true }"
+            >Home</a
+          >
+        </li>
+      </ul>
+      <ul class="navbar-nav ms-auto">
+        <li *ngIf="isLoggedIn()" class="nav-item">
+          <a
+            class="nav-link"
+            routerLink="/dashboard"
+            routerLinkActive="active"
+            [routerLinkActiveOptions]="{ exact: true }"
+            >Dashboard</a
+          >
+        </li>
+        <li *ngIf="isLoggedIn()" class="nav-item" routerLinkActive="active">
+          <a
+            class="nav-link"
+            routerLink="/profile"
+            routerLinkActive="active"
+            [routerLinkActiveOptions]="{ exact: true }"
+            >Profile</a
+          >
+        </li>
+        <li *ngIf="!isLoggedIn()" class="nav-item">
+          <a
+            class="nav-link"
+            routerLink="/login"
+            routerLinkActive="active"
+            [routerLinkActiveOptions]="{ exact: true }"
+            >Login</a
+          >
+        </li>
+        <li *ngIf="!isLoggedIn()" class="nav-item" routerLinkActive="active">
+          <a
+            class="nav-link"
+            routerLink="/register"
+            routerLinkActive="active"
+            [routerLinkActiveOptions]="{ exact: true }"
+            >Register</a
+          >
+        </li>
+        <li *ngIf="isLoggedIn()" class="nav-item">
+          <a class="nav-link" routerLink="/login" (click)="onLogoutClick()"
+            >Logout</a
+          >
+        </li>
+      </ul>
+    </div>
+  </div>
+</nav>

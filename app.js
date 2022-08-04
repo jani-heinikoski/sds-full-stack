@@ -25,7 +25,7 @@ app.use(express.static(path.join(__dirname, "public")));
 app.use("/users", usersRouter);
 // Index route
 app.get("*", (req, res) => {
-    res.redirect("/index.html");
+    res.sendFile(path.join(__dirname, "public/index.html"));
 });
 // Connect to the MongoDB database and start the server after
 mongoose.connect(process.env.MONGO_URL).then(
