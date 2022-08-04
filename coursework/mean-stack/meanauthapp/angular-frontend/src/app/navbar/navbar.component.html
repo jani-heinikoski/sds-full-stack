@@ -25,7 +25,25 @@
         </li>
       </ul>
       <ul class="navbar-nav ms-auto">
-        <li class="nav-item">
+        <li *ngIf="isLoggedIn()" class="nav-item">
+          <a
+            class="nav-link"
+            routerLink="/dashboard"
+            routerLinkActive="active"
+            [routerLinkActiveOptions]="{ exact: true }"
+            >Dashboard</a
+          >
+        </li>
+        <li *ngIf="isLoggedIn()" class="nav-item" routerLinkActive="active">
+          <a
+            class="nav-link"
+            routerLink="/profile"
+            routerLinkActive="active"
+            [routerLinkActiveOptions]="{ exact: true }"
+            >Profile</a
+          >
+        </li>
+        <li *ngIf="!isLoggedIn()" class="nav-item">
           <a
             class="nav-link"
             routerLink="/login"
@@ -34,7 +52,7 @@
             >Login</a
           >
         </li>
-        <li class="nav-item" routerLinkActive="active">
+        <li *ngIf="!isLoggedIn()" class="nav-item" routerLinkActive="active">
           <a
             class="nav-link"
             routerLink="/register"
@@ -43,7 +61,7 @@
             >Register</a
           >
         </li>
-        <li class="nav-item">
+        <li *ngIf="isLoggedIn()" class="nav-item">
           <a class="nav-link" routerLink="/login" (click)="onLogoutClick()"
             >Logout</a
           >

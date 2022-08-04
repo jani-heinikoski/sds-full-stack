@@ -42,7 +42,7 @@ export class LoginComponent implements OnInit {
     };
 
     const onSuccess = (value: any): void => {
-      this.showFlashMessageSuccess('You are now registered and can log in!');
+      this.showFlashMessageSuccess('You are now logged in!');
       this.authService.storeUserData(value.user, value.token);
       this.router.navigate(['dashboard']);
     };

@@ -29,4 +29,8 @@ export class NavbarComponent implements OnInit {
     this.authService.logout();
     this.showFlashMessageSuccess('You are logged out');
   }
+
+  isLoggedIn() {
+    return this.authService.isLoggedIn();
+  }
 }
