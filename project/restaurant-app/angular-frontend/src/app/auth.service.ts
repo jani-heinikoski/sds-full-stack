@@ -10,7 +10,6 @@ import { User } from './user';
   providedIn: 'root',
 })
 export class AuthService {
-  private loggedIn: boolean = false;
   private helper = new JwtHelperService();
 
   constructor(private http: HttpClient) {}
@@ -38,13 +37,11 @@ export class AuthService {
   storeUserData(user: User, token: string): void {
     window.localStorage.setItem('id_token', token);
     window.localStorage.setItem('user', JSON.stringify(user));
-    this.loggedIn = true;
   }
 
   logout(): void {
     window.localStorage.removeItem('id_token');
     window.localStorage.removeItem('user');
-    this.loggedIn = false;
   }
 
   isLoggedIn(): boolean {
