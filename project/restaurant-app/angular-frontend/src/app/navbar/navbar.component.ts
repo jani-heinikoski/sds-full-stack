@@ -1,5 +1,4 @@
 import { Component, OnInit } from '@angular/core';
-import { Router } from '@angular/router';
 
 import { FlashMessagesService } from 'flash-messages-angular';
 import { AuthService } from '../auth.service';
@@ -11,7 +10,6 @@ import { AuthService } from '../auth.service';
 })
 export class NavbarComponent implements OnInit {
   constructor(
-    private router: Router,
     private flashMessagesService: FlashMessagesService,
     private authService: AuthService
   ) {}
@@ -26,11 +24,11 @@ export class NavbarComponent implements OnInit {
   }
 
   onLogoutClick() {
-    this.authService.logout();
+    this.authService.removeAuthenticatedUser();
     this.showFlashMessageSuccess('You are logged out');
   }
 
-  isLoggedIn() {
-    return this.authService.isLoggedIn();
+  isUserAuthenticated() {
+    return this.authService.isUserAuthenticated();
   }
 }

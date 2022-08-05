@@ -25,7 +25,7 @@
         </li>
       </ul>
       <ul class="navbar-nav ms-auto">
-        <li *ngIf="isLoggedIn()" class="nav-item">
+        <li *ngIf="isUserAuthenticated()" class="nav-item">
           <a
             class="nav-link"
             routerLink="/profile"
@@ -34,7 +34,7 @@
             >Profile</a
           >
         </li>
-        <li *ngIf="!isLoggedIn()" class="nav-item">
+        <li *ngIf="!isUserAuthenticated()" class="nav-item">
           <a
             class="nav-link"
             routerLink="/login"
@@ -43,7 +43,7 @@
             >Login</a
           >
         </li>
-        <li *ngIf="!isLoggedIn()" class="nav-item">
+        <li *ngIf="!isUserAuthenticated()" class="nav-item">
           <a
             class="nav-link"
             routerLink="/register"
@@ -52,7 +52,7 @@
             >Register</a
           >
         </li>
-        <li *ngIf="isLoggedIn()" class="nav-item">
+        <li *ngIf="isUserAuthenticated()" class="nav-item">
           <a class="nav-link" routerLink="/login" (click)="onLogoutClick()"
             >Logout</a
           >

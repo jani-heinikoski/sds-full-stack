@@ -34,19 +34,25 @@ export class AuthService {
     });
   }
 
-  storeUserData(user: User, token: string): void {
+  storeAuthenticatedUser(user: User, token: string): void {
     window.localStorage.setItem('id_token', token);
     window.localStorage.setItem('user', JSON.stringify(user));
   }
 
-  logout(): void {
+  removeAuthenticatedUser(): void {
     window.localStorage.removeItem('id_token');
     window.localStorage.removeItem('user');
   }
 
-  isLoggedIn(): boolean {
-    return !this.helper.isTokenExpired(
-      window.localStorage.getItem('id_token') ?? undefined
-    );
+  isUserAuthenticated(): boolean {
+    let loggedIn;
+    try {
+      loggedIn = !this.helper.isTokenExpired(
+        window.localStorage.getItem('id_token') ?? undefined
+      );
+    } catch (err) {
+      loggedIn = false;
+    }
+    return loggedIn;
   }
 }
