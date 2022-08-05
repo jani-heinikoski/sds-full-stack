@@ -1,15 +1,25 @@
-<div class="bg-light text-center mt-3 mb-3 p-5">
-  <h1>Welcome to our RESTaurant</h1>
-  <p class="lead">Here you can find our menu and reserve a table!</p>
-  <div>
-    <a routerLink="/register" class="btn btn-primary p-3 register-button m-1"
-      >Register</a
-    >
-    <a routerLink="/login" class="btn btn-dark p-3 login-button m-1">Login</a>
+<div class="text-center mt-3 mb-3 p-5" style="background-color: #2322">
+  <div class="bg-dark text-light px-4 py-5 text-center">
+    <div class="py-5">
+      <h1 class="display-3 text-white">MEAN RESTaurant</h1>
+      <div class="col-lg-6 mx-auto">
+        <p class="fs-5 mb-4">
+          Our modernized website has our up to date menu and opening hours. We
+          welcome you to our restaurant with joy!
+        </p>
+        <div class="d-grid gap-2 d-sm-flex justify-content-sm-center">
+          <a
+            routerLink="/menu"
+            class="btn btn-lg btn-light login-button px-5 py-3"
+            >Menu</a
+          >
+        </div>
+      </div>
+    </div>
   </div>
 </div>
 
-<div class="row">
+<div class="row mt-5">
   <div class="col-md-4">
     <h3>Express Backend</h3>
     <p>A rock solid Mongo/Express/Node server.</p>

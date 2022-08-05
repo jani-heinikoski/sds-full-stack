@@ -6,6 +6,7 @@ import { HomeComponent } from './home/home.component';
 import { LoginComponent } from './login/login.component';
 import { ProfileComponent } from './profile/profile.component';
 import { RegisterComponent } from './register/register.component';
+import { MenuComponent } from './menu/menu.component';
 
 import { AuthGuard } from './guards/auth.guard';
 
@@ -13,6 +14,7 @@ const routes: Routes = [
   { path: '', component: HomeComponent },
   { path: 'register', component: RegisterComponent },
   { path: 'login', component: LoginComponent },
+  { path: 'menu', component: MenuComponent },
   {
     path: 'dashboard',
     component: DashboardComponent,
