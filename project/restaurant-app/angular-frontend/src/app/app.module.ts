@@ -13,6 +13,7 @@ import { HomeComponent } from './home/home.component';
 import { DashboardComponent } from './dashboard/dashboard.component';
 import { ProfileComponent } from './profile/profile.component';
 import { MenuComponent } from './menu/menu.component';
+import { FeedbackComponent } from './feedback/feedback.component';
 
 @NgModule({
   declarations: [
@@ -24,6 +25,7 @@ import { MenuComponent } from './menu/menu.component';
     DashboardComponent,
     ProfileComponent,
     MenuComponent,
+    FeedbackComponent,
   ],
   imports: [
     BrowserModule,
