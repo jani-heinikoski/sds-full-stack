@@ -10,7 +10,6 @@ import { NavbarComponent } from './navbar/navbar.component';
 import { LoginComponent } from './login/login.component';
 import { RegisterComponent } from './register/register.component';
 import { HomeComponent } from './home/home.component';
-import { DashboardComponent } from './dashboard/dashboard.component';
 import { ProfileComponent } from './profile/profile.component';
 import { MenuComponent } from './menu/menu.component';
 import { FeedbackComponent } from './feedback/feedback.component';
@@ -22,7 +21,6 @@ import { FeedbackComponent } from './feedback/feedback.component';
     LoginComponent,
     RegisterComponent,
     HomeComponent,
-    DashboardComponent,
     ProfileComponent,
     MenuComponent,
     FeedbackComponent,
