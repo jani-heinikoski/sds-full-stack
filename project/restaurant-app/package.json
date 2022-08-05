@@ -1,7 +1,7 @@
 {
-    "name": "meanauthapp",
+    "name": "restaurant-app",
     "version": "1.0.0",
-    "description": "MEAN-Stack module's project of the LUT Full Stack 2022 course",
+    "description": "LUT Course (SDS: Full Stack) final project. A web app for restaurants",
     "main": "app.js",
     "scripts": {
         "start": "node app",
