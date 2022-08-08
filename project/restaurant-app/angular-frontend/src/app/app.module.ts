@@ -12,7 +12,6 @@ import { RegisterComponent } from './register/register.component';
 import { HomeComponent } from './home/home.component';
 import { ProfileComponent } from './profile/profile.component';
 import { MenuComponent } from './menu/menu.component';
-import { FeedbackComponent } from './feedback/feedback.component';
 
 @NgModule({
   declarations: [
@@ -23,7 +22,6 @@ import { FeedbackComponent } from './feedback/feedback.component';
     HomeComponent,
     ProfileComponent,
     MenuComponent,
-    FeedbackComponent,
   ],
   imports: [
     BrowserModule,
