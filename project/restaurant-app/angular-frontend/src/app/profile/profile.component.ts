@@ -1,5 +1,4 @@
 import { Component, OnInit } from '@angular/core';
-import { Router } from '@angular/router';
 import { AuthService } from '../auth.service';
 import { User } from '../user';
 
@@ -11,15 +10,11 @@ import { User } from '../user';
 export class ProfileComponent implements OnInit {
   user?: User;
 
-  constructor(private router: Router, private authService: AuthService) {}
+  constructor(private authService: AuthService) {}
 
   ngOnInit(): void {
-    const onSuccess = (value: any) => {
-      try {
-        this.user = JSON.parse(window.localStorage.getItem('user') ?? '');
-      } catch (err) {
-        console.error(err);
-      }
+    const onSuccess = (res: any) => {
+      this.user = res?.profile;
     };
 
     const onError = (err: any) => {
