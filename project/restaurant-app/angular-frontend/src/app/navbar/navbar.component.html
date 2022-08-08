@@ -25,6 +25,15 @@
         </li>
       </ul>
       <ul class="navbar-nav ms-auto">
+        <li class="nav-item">
+          <a
+            class="nav-link"
+            routerLink="/menu"
+            routerLinkActive="active"
+            [routerLinkActiveOptions]="{ exact: true }"
+            >Menu</a
+          >
+        </li>
         <li *ngIf="isUserAuthenticated()" class="nav-item">
           <a
             class="nav-link"
