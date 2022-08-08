@@ -1,4 +1,5 @@
 import { Injectable } from '@angular/core';
+import { MenuItem } from './menu-item';
 
 import { User } from './user';
 
@@ -9,7 +10,7 @@ export class ValidateService {
   constructor() {}
 
   validateRegister(user: User): boolean {
-    return user.name && user.username && user.email && user.password
+    return user && user.name && user.username && user.email && user.password
       ? true
       : false;
   }
@@ -20,6 +21,17 @@ export class ValidateService {
       .match(
         /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/
       )
+      ? true
+      : false;
+  }
+
+  validateMenuItem(menuItem: MenuItem): boolean {
+    return menuItem &&
+      menuItem.name &&
+      menuItem.category &&
+      menuItem.ingredients &&
+      menuItem.category &&
+      menuItem.price
       ? true
       : false;
   }
