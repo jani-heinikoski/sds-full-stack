@@ -16,19 +16,19 @@ export class NavbarComponent implements OnInit {
 
   ngOnInit(): void {}
 
-  private showFlashMessageSuccess(text: string) {
+  private showFlashMessageSuccess(text: string): void {
     this.flashMessagesService.show(text, {
       cssClass: 'alert-success',
       timeout: 3000,
     });
   }
 
-  onLogoutClick() {
+  onLogoutClick(): void {
     this.authService.removeAuthenticatedUser();
     this.showFlashMessageSuccess('You are logged out');
   }
 
-  isUserAuthenticated() {
+  isUserAuthenticated(): boolean {
     return this.authService.isUserAuthenticated();
   }
 }
