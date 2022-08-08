@@ -5,6 +5,7 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Observable } from 'rxjs';
 
 import { User } from './user';
+import { BaseURLService } from './base-url.service';
 
 @Injectable({
   providedIn: 'root',
@@ -12,22 +13,33 @@ import { User } from './user';
 export class AuthService {
   private helper = new JwtHelperService();
 
-  constructor(private http: HttpClient) {}
+  constructor(
+    private http: HttpClient,
+    private baseURLService: BaseURLService
+  ) {}
 
   registerUser(user: User): Observable<any> {
-    return this.http.post('http://localhost:3000/users/register', user, {
-      headers: new HttpHeaders({ 'Content-Type': 'application/json' }),
-    });
+    return this.http.post(
+      `${this.baseURLService.getBaseURL()}/users/register`,
+      user,
+      {
+        headers: new HttpHeaders({ 'Content-Type': 'application/json' }),
+      }
+    );
   }
 
   authenticateUser(user: User): Observable<any> {
-    return this.http.post('http://localhost:3000/users/authenticate', user, {
-      headers: new HttpHeaders({ 'Content-Type': 'application/json' }),
-    });
+    return this.http.post(
+      `${this.baseURLService.getBaseURL()}/users/authenticate`,
+      user,
+      {
+        headers: new HttpHeaders({ 'Content-Type': 'application/json' }),
+      }
+    );
   }
 
   getProfile(): Observable<any> {
-    return this.http.get('http://localhost:3000/users/profile', {
+    return this.http.get(`${this.baseURLService.getBaseURL()}/users/profile`, {
       headers: new HttpHeaders({
         Authorization: `JWT ${window.localStorage.getItem('id_token')}` ?? '',
       }),
