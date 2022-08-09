@@ -6,7 +6,7 @@ const path = require("path");
 const cors = require("cors");
 const passport = require("passport");
 
-const usersRouter = require("./routes/users");
+const userRouter = require("./routes/user");
 
 const initPassportJWTStrategy = require("./initPassportJWTStrategy");
 
@@ -22,7 +22,7 @@ app.use(express.json({ type: "application/json" }));
 // Serve static assets
 app.use(express.static(path.join(__dirname, "public")));
 // Use user defined routers
-app.use("/users", usersRouter);
+app.use("/user", userRouter);
 // Index route
 app.get("*", (req, res) => {
     res.sendFile(path.join(__dirname, "public/index.html"));

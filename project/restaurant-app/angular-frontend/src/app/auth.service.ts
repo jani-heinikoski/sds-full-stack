@@ -20,7 +20,7 @@ export class AuthService {
 
   registerUser(user: User): Observable<any> {
     return this.http.post(
-      `${this.baseURLService.getBaseURL()}/users/register`,
+      `${this.baseURLService.getBaseURL()}/user/register`,
       user,
       {
         headers: new HttpHeaders({ 'Content-Type': 'application/json' }),
@@ -30,7 +30,7 @@ export class AuthService {
 
   authenticateUser(user: User): Observable<any> {
     return this.http.post(
-      `${this.baseURLService.getBaseURL()}/users/authenticate`,
+      `${this.baseURLService.getBaseURL()}/user/authenticate`,
       user,
       {
         headers: new HttpHeaders({ 'Content-Type': 'application/json' }),
@@ -39,7 +39,7 @@ export class AuthService {
   }
 
   getProfile(): Observable<any> {
-    return this.http.get(`${this.baseURLService.getBaseURL()}/users/profile`, {
+    return this.http.get(`${this.baseURLService.getBaseURL()}/user/profile`, {
       headers: new HttpHeaders({
         Authorization: `JWT ${window.localStorage.getItem('id_token')}` ?? '',
       }),
