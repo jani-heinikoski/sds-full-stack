@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { JwtHelperService } from '@auth0/angular-jwt';
 
 import { HttpClient, HttpHeaders } from '@angular/common/http';
-import { Observable } from 'rxjs';
+import { Observable, of } from 'rxjs';
 
 import { User } from './user';
 import { BaseURLService } from './base-url.service';
@@ -43,6 +43,41 @@ export class AuthService {
       headers: new HttpHeaders({
         Authorization: `JWT ${window.localStorage.getItem('id_token')}` ?? '',
       }),
+    });
+  }
+
+  getMenuItems(): Observable<any> {
+    return of({
+      items: [
+        {
+          _id: 'obj121321321',
+          name: 'Example food 1',
+          ingredients: ['Steak', 'Fries', '10M calories'],
+          price: 12.54,
+          category: 'Appetizer',
+        },
+        {
+          _id: 'obj121321322',
+          name: 'Example food 2',
+          ingredients: ['More steak', 'Even more fries', '15M calories'],
+          price: 14.54,
+          category: 'Appetizer',
+        },
+        {
+          _id: 'obj121321323',
+          name: 'Example dinner 1',
+          ingredients: ['Chicken', 'Rice', '0 calories'],
+          price: 212.54,
+          category: 'Main Course',
+        },
+        {
+          _id: 'obj121321324',
+          name: 'Example dinner 2',
+          ingredients: ['Water', 'Even more water', '-1e6 calories'],
+          price: 134.54,
+          category: 'Main Course',
+        },
+      ],
     });
   }
 

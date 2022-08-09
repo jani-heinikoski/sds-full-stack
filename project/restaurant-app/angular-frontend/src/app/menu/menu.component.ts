@@ -18,36 +18,18 @@ export class MenuComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
-    this.items = [
-      {
-        _id: 'obj121321321',
-        name: 'Example food 1',
-        ingredients: ['Steak', 'Fries', '10M calories'],
-        price: 12.54,
-        category: 'Appetizer',
-      },
-      {
-        _id: 'obj121321322',
-        name: 'Example food 2',
-        ingredients: ['More steak', 'Even more fries', '15M calories'],
-        price: 14.54,
-        category: 'Appetizer',
-      },
-      {
-        _id: 'obj121321323',
-        name: 'Example dinner 1',
-        ingredients: ['Chicken', 'Rice', '0 calories'],
-        price: 212.54,
-        category: 'Main Course',
-      },
-      {
-        _id: 'obj121321324',
-        name: 'Example dinner 2',
-        ingredients: ['Water', 'Even more water', '-1e6 calories'],
-        price: 134.54,
-        category: 'Main Course',
-      },
-    ];
+    const onSuccess = (res: any) => {
+      this.items = res?.items;
+    };
+
+    const onError = (err: any) => {
+      console.error(err);
+    };
+
+    this.authService.getMenuItems().subscribe({
+      next: onSuccess,
+      error: onError,
+    });
   }
 
   formatIngredients = (ingredients: string[] | undefined) => {
