@@ -1,4 +1,5 @@
 const express = require("express");
+const passport = require("passport");
 // DB Models
 const MenuItem = require("../db/models/menu-item");
 // DB Services
@@ -23,30 +24,34 @@ router.get("/items", async (req, res) => {
     });
 });
 
-router.post("/items", async (req, res) => {
-    try {
-        if (req.body.item) {
-            const item = await addItem(
-                new MenuItem({
-                    name: req.body.item.name,
-                    ingredients: req.body.item.ingredients,
-                    category: req.body.item.category,
-                    price: req.body.item.price,
-                })
-            );
-            return res.status(201).json({
-                success: true,
-                msg: "Added new menu item",
-                item: item,
-            });
+router.post(
+    "/items",
+    passport.authenticate("jwt", { session: false }),
+    async (req, res) => {
+        try {
+            if (req.body.item) {
+                const item = await addItem(
+                    new MenuItem({
+                        name: req.body.item.name,
+                        ingredients: req.body.item.ingredients,
+                        category: req.body.item.category,
+                        price: req.body.item.price,
+                    })
+                );
+                return res.status(201).json({
+                    success: true,
+                    msg: "Added new menu item",
+                    item: item,
+                });
+            }
+        } catch (err) {
+            console.error(err);
         }
-    } catch (err) {
-        console.error(err);
+        return res.status(400).json({
+            success: false,
+            msg: "Error: invalid request body",
+        });
     }
-    return res.status(400).json({
-        success: false,
-        msg: "Error: invalid request body",
-    });
-});
+);
 
 module.exports = router;
