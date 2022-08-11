@@ -80,4 +80,8 @@ export class ApiService {
       this.createHeaders(false, true)
     );
   }
+
+  public getOpeningHours(): Observable<any> {
+    return new Observable((subscriber: any) => {});
+  }
 }

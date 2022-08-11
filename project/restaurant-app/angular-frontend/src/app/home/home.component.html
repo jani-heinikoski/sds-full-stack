@@ -24,34 +24,53 @@
       </tr>
     </thead>
     <tbody>
-      <tr class="table-dark">
-        <th scope="row">Monday</th>
-        <td>12:00 - 16:00</td>
-      </tr>
-      <tr class="table-primary">
-        <th scope="row">Tuesday</th>
-        <td>12:00 - 16:00</td>
-      </tr>
-      <tr class="table-dark">
-        <th scope="row">Wednesday</th>
-        <td>12:00 - 16:00</td>
-      </tr>
-      <tr class="table-primary">
-        <th scope="row">Thursday</th>
-        <td>12:00 - 16:00</td>
-      </tr>
-      <tr class="table-dark">
-        <th scope="row">Friday</th>
-        <td>12:00 - 16:00</td>
-      </tr>
-      <tr class="table-primary">
-        <th scope="row">Saturday</th>
-        <td>12:00 - 16:00</td>
-      </tr>
-      <tr class="table-dark">
-        <th scope="row">Sunday</th>
-        <td>12:00 - 16:00</td>
-      </tr>
+      <ng-container *ngFor="let key of getOpeningHoursKeys(); even as even">
+        <tr *ngIf="!even" class="table-primary">
+          <th scope="row">{{ key }}</th>
+          <td>{{ openingHours?.[key] }}</td>
+        </tr>
+        <tr *ngIf="even" class="table-dark">
+          <th scope="row">{{ key }}</th>
+          <td>{{ openingHours?.[key] }}</td>
+        </tr>
+      </ng-container>
     </tbody>
   </table>
+</div>
+
+<div *ngIf="isUserAuthenticated()">
+  <hr class="border border-primary border-1 opacity-100 my-5" />
+  <h2 class="mb-4">Modify opening hours</h2>
+  <form #f="ngForm" (submit)="updateOpeningHour()">
+    <label for="day-selection" class="form-label mt-4">Select a day</label>
+    <select
+      class="form-select"
+      id="day-selection"
+      name="days"
+      [(ngModel)]="selectedDay"
+    >
+      <option *ngFor="let day of getOpeningHoursKeys()" [ngValue]="day">
+        {{ capitalize(day) }}
+      </option>
+    </select>
+    <div class="form-group my-3">
+      <label for="menu-newitem-name-input"
+        >Set the opening hour (free form text)</label
+      >
+      <input
+        type="text"
+        name="opening-hour"
+        id="opening-hour-input"
+        placeholder="08:00 - 16:00"
+        class="form-control"
+        [(ngModel)]="openingHour"
+      />
+    </div>
+    <input
+      type="submit"
+      value="Update opening hour"
+      class="btn btn-primary my-3 p-2"
+      style="min-width: 15vw"
+    />
+  </form>
 </div>
