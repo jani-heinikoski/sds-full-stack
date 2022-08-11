@@ -64,6 +64,17 @@ export class AuthService {
     );
   }
 
+  deleteMenuItem(menuItem: MenuItem): Observable<any> {
+    return this.http.delete(
+      `${this.baseURLService.getBaseURL()}/menu/items/${menuItem._id}`,
+      {
+        headers: new HttpHeaders({
+          Authorization: `JWT ${window.localStorage.getItem('id_token')}` ?? '',
+        }),
+      }
+    );
+  }
+
   storeAuthenticatedUser(user: User, token: string): void {
     window.localStorage.setItem('id_token', token);
     window.localStorage.setItem('user', JSON.stringify(user));

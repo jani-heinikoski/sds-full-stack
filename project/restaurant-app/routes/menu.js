@@ -5,6 +5,7 @@ const MenuItem = require("../db/models/menu-item");
 // DB Services
 const getItems = require("../db/services/menu/getItems");
 const addItem = require("../db/services/menu/addItem");
+const deleteItemById = require("../db/services/menu/deleteItemById");
 
 const router = express.Router();
 
@@ -50,6 +51,31 @@ router.post(
         return res.status(400).json({
             success: false,
             msg: "Error: invalid request body",
+        });
+    }
+);
+
+router.delete(
+    "/items/:_id",
+    passport.authenticate("jwt", { session: false }),
+    async (req, res) => {
+        if (req.params._id) {
+            try {
+                const deletedItem = await deleteItemById(req.params._id);
+                if (deletedItem) {
+                    return res.status(200).json({
+                        success: true,
+                        msg: "Removed menu item.",
+                        item: deletedItem,
+                    });
+                }
+            } catch (err) {
+                console.error(err);
+            }
+        }
+        return res.status(400).json({
+            success: false,
+            msg: "Feature not yet implemented",
         });
     }
 );

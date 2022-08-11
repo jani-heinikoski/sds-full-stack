@@ -112,14 +112,28 @@ export class MenuComponent implements OnInit {
     });
   };
 
+  deleteItem(item: MenuItem) {
+    const onSuccess = (res: any) => {
+      this.showFlashMessageSuccess(res?.msg);
+      const idx = this.items?.findIndex((i) => i._id === res?.item?._id);
+      if (idx != undefined && idx !== -1) {
+        this.items?.splice(idx, 1);
+      }
+    };
+
+    const onError = (err: any) => {
+      this.showFlashMessageAlert('Something went wrong.');
+    };
+
+    this.authService.deleteMenuItem(item).subscribe({
+      next: onSuccess,
+      error: onError,
+    });
+  }
+
   categoryChanged(e: any) {
     this.newItem.category = e.target.value;
   }
-
-  removeMenuItem = (_id?: string) => {
-    if (!_id) return;
-    // DELETE menu item and remove from menu
-  };
 
   isUserAuthenticated(): boolean {
     return this.authService.isUserAuthenticated();
