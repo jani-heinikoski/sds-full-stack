@@ -1,5 +1,4 @@
 import { Component, OnInit } from '@angular/core';
-import { Router } from '@angular/router';
 
 import { FlashMessagesService } from 'flash-messages-angular';
 import { AuthService } from '../auth.service';
@@ -15,7 +14,6 @@ export class LoginComponent implements OnInit {
   user: User = {};
 
   constructor(
-    private router: Router,
     private flashMessagesService: FlashMessagesService,
     private authService: AuthService
   ) {}
@@ -23,13 +21,23 @@ export class LoginComponent implements OnInit {
   ngOnInit(): void {}
 
   private showFlashMessageAlert(text: string) {
+    window.scroll({
+      top: 0,
+      left: 0,
+      behavior: 'smooth',
+    });
     this.flashMessagesService.show(text, {
       cssClass: 'alert-danger',
-      timeout: 5000,
+      timeout: 3000,
     });
   }
 
   private showFlashMessageSuccess(text: string) {
+    window.scroll({
+      top: 0,
+      left: 0,
+      behavior: 'smooth',
+    });
     this.flashMessagesService.show(text, {
       cssClass: 'alert-success',
       timeout: 3000,
