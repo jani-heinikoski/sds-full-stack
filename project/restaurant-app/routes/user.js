@@ -5,7 +5,6 @@ const passport = require("passport");
 const User = require("../db/models/user");
 // DB Services
 const addUser = require("../db/services/user/addUser");
-const getUserById = require("../db/services/user/getUserById");
 const getUserByUsername = require("../db/services/user/getUserByUsername");
 const comparePassword = require("../db/services/user/comparePassword");
 
@@ -66,7 +65,7 @@ router.get(
     "/profile",
     passport.authenticate("jwt", { session: false }),
     (req, res) => {
-        res.status(200).json({
+        return res.status(200).json({
             success: true,
             msg: "You are authorized.",
             profile: {
