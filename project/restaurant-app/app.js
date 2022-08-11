@@ -7,6 +7,7 @@ const cors = require("cors");
 const passport = require("passport");
 
 const userRouter = require("./routes/user");
+const menuRouter = require("./routes/menu");
 
 const initPassportJWTStrategy = require("./initPassportJWTStrategy");
 
@@ -23,6 +24,7 @@ app.use(express.json({ type: "application/json" }));
 app.use(express.static(path.join(__dirname, "public")));
 // Use user defined routers
 app.use("/user", userRouter);
+app.use("/menu", menuRouter);
 // Index route
 app.get("*", (req, res) => {
     res.sendFile(path.join(__dirname, "public/index.html"));
