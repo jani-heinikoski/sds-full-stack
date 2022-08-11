@@ -31,7 +31,8 @@ export class ValidateService {
       menuItem.category &&
       menuItem.ingredients &&
       menuItem.category &&
-      menuItem.price
+      menuItem.price != undefined &&
+      menuItem.price >= 0
       ? true
       : false;
   }

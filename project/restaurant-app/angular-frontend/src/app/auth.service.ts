@@ -6,6 +6,7 @@ import { Observable, of } from 'rxjs';
 
 import { User } from './user';
 import { BaseURLService } from './base-url.service';
+import { MenuItem } from './menu-item';
 
 @Injectable({
   providedIn: 'root',
@@ -48,6 +49,19 @@ export class AuthService {
 
   getMenuItems(): Observable<any> {
     return this.http.get(`${this.baseURLService.getBaseURL()}/menu/items`);
+  }
+
+  addMenuItem(menuItem: MenuItem): Observable<any> {
+    return this.http.post(
+      `${this.baseURLService.getBaseURL()}/menu/items`,
+      { item: menuItem },
+      {
+        headers: new HttpHeaders({
+          'Content-Type': 'application/json',
+          Authorization: `JWT ${window.localStorage.getItem('id_token')}` ?? '',
+        }),
+      }
+    );
   }
 
   storeAuthenticatedUser(user: User, token: string): void {

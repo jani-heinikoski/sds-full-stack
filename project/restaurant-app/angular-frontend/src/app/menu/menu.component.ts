@@ -1,7 +1,9 @@
 import { Component, OnInit } from '@angular/core';
+
 import { AuthService } from '../auth.service';
 import { MenuItem } from '../menu-item';
 import { ValidateService } from '../validate.service';
+import { FlashMessagesService } from 'flash-messages-angular';
 
 @Component({
   selector: 'app-menu',
@@ -9,12 +11,19 @@ import { ValidateService } from '../validate.service';
   styleUrls: ['./menu.component.css'],
 })
 export class MenuComponent implements OnInit {
-  newItem: MenuItem = {};
+  newItem: MenuItem = {
+    name: '',
+    price: 0,
+    ingredients: [],
+    category: 'Appetizer',
+  };
   items?: MenuItem[];
+  newIngredient: string = '';
 
   constructor(
     private authService: AuthService,
-    private validateService: ValidateService
+    private validateService: ValidateService,
+    private flashMessagesService: FlashMessagesService
   ) {}
 
   ngOnInit(): void {
@@ -32,6 +41,30 @@ export class MenuComponent implements OnInit {
     });
   }
 
+  private showFlashMessageAlert(text: string) {
+    window.scroll({
+      top: 0,
+      left: 0,
+      behavior: 'smooth',
+    });
+    this.flashMessagesService.show(text, {
+      cssClass: 'alert-danger',
+      timeout: 3000,
+    });
+  }
+
+  private showFlashMessageSuccess(text: string) {
+    window.scroll({
+      top: 0,
+      left: 0,
+      behavior: 'smooth',
+    });
+    this.flashMessagesService.show(text, {
+      cssClass: 'alert-success',
+      timeout: 3000,
+    });
+  }
+
   formatIngredients = (ingredients: string[] | undefined) => {
     if (!ingredients) return null;
     let formattedIngredients: string = '';
@@ -45,10 +78,43 @@ export class MenuComponent implements OnInit {
     return formattedIngredients;
   };
 
-  addItem = () => {
-    if (!this.validateService.validateMenuItem(this.newItem)) return;
-    // POST new menu item and add to menu
+  addIngredient = (): void => {
+    if (this.newIngredient === '') {
+      this.showFlashMessageAlert('Ingredient input is empty');
+      return;
+    }
+    this.newItem.ingredients?.push(this.newIngredient);
+    this.newIngredient = '';
   };
+
+  removeIngredient = (index: number): void => {
+    this.newItem.ingredients?.splice(index, 1);
+  };
+
+  addItem = (): void => {
+    if (!this.validateService.validateMenuItem(this.newItem)) {
+      this.showFlashMessageAlert('Failed to add menu item, check all fields');
+      return;
+    }
+
+    const onSuccess = (res: any) => {
+      this.showFlashMessageSuccess(res?.msg);
+      this.items?.push(res?.item);
+    };
+
+    const onError = (err: any) => {
+      this.showFlashMessageAlert(err?.msg);
+    };
+
+    this.authService.addMenuItem(this.newItem).subscribe({
+      next: onSuccess,
+      error: onError,
+    });
+  };
+
+  categoryChanged(e: any) {
+    this.newItem.category = e.target.value;
+  }
 
   removeMenuItem = (_id?: string) => {
     if (!_id) return;

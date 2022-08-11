@@ -1,15 +1,16 @@
+<h2 class="page-header my-4">Our menu</h2>
 <ul class="list-group">
-  <h3 class="mt-3">Appetizers</h3>
+  <h4 class="mt-3">Appetizers</h4>
   <ng-container *ngFor="let item of items">
     <li
       *ngIf="item.category === 'Appetizer'"
-      class="list-group-item d-flex justify-content-between align-items-start"
+      class="list-group-item d-flex justify-content-between align-items-center"
     >
       <div class="ms-2 me-auto">
         <div class="fw-bold">{{ item.name }}</div>
         {{ formatIngredients(item.ingredients) }}
       </div>
-      <span class="badge bg-primary rounded-pill"
+      <span class="badge bg-primary text-info fs-5"
         >{{ item.price?.toFixed(2) }}€</span
       >
       <button
@@ -19,17 +20,17 @@
       ></button>
     </li>
   </ng-container>
-  <h3 class="mt-3">Main Courses</h3>
+  <h4 class="mt-3">Main Courses</h4>
   <ng-container *ngFor="let item of items">
     <li
       *ngIf="item.category === 'Main Course'"
-      class="list-group-item d-flex justify-content-between align-items-start"
+      class="list-group-item d-flex justify-content-between align-items-center"
     >
       <div class="ms-2 me-auto">
         <div class="fw-bold">{{ item.name }}</div>
         {{ formatIngredients(item.ingredients) }}
       </div>
-      <span class="badge bg-primary rounded-pill"
+      <span class="badge bg-primary text-info fs-5"
         >{{ item.price?.toFixed(2) }}€</span
       >
       <button
@@ -39,17 +40,17 @@
       ></button>
     </li>
   </ng-container>
-  <h3 class="mt-3">Desserts</h3>
+  <h4 class="mt-3">Desserts</h4>
   <ng-container *ngFor="let item of items">
     <li
       *ngIf="item.category === 'Dessert'"
-      class="list-group-item d-flex justify-content-between align-items-start"
+      class="list-group-item d-flex justify-content-between align-items-center"
     >
       <div class="ms-2 me-auto">
         <div class="fw-bold">{{ item.name }}</div>
         {{ formatIngredients(item.ingredients) }}
       </div>
-      <span class="badge bg-primary rounded-pill"
+      <span class="badge bg-primary text-info fs-5"
         >{{ item.price?.toFixed(2) }}€</span
       >
       <button
@@ -60,3 +61,116 @@
     </li>
   </ng-container>
 </ul>
+
+<div *ngIf="isUserAuthenticated()">
+  <hr class="border border-primary border-1 opacity-100 my-5" />
+  <h2 class="mb-4">Add items to menu</h2>
+  <form (submit)="addItem()">
+    <div class="form-group my-3">
+      <label for="menu-newitem-name-input">Name</label>
+      <input
+        type="text"
+        name="name"
+        id="menu-newitem-name-input"
+        class="form-control"
+        [(ngModel)]="newItem.name"
+      />
+    </div>
+    <div class="form-group my-3">
+      <label for="menu-newitem-price-input">Price (in euros)</label>
+      <input
+        type="number"
+        name="price"
+        min="0"
+        id="menu-newitem-price-input"
+        class="form-control"
+        [(ngModel)]="newItem.price"
+      />
+    </div>
+    <div class="my-3">
+      <div class="card" *ngIf="newItem.ingredients?.length">
+        <div class="card-header">Ingredients:</div>
+        <div class="card-body">
+          <ul class="list-group">
+            <li
+              *ngFor="let ingredient of newItem.ingredients; index as i"
+              class="list-group-item d-flex justify-content-between align-items-center"
+            >
+              <p class="mb-0">{{ ingredient }}</p>
+              <button
+                type="button"
+                class="btn-close btn"
+                (click)="removeIngredient(i)"
+              ></button>
+            </li>
+          </ul>
+        </div>
+      </div>
+      <div class="form-group">
+        <label for="new-ingredient-input">Ingredient</label>
+        <input
+          id="new-ingredient-input"
+          type="text"
+          class="form-control"
+          name="ingredient"
+          [(ngModel)]="newIngredient"
+        />
+        <button
+          class="btn btn-primary mt-3"
+          type="button"
+          id="add-ingredient-btn"
+          (click)="addIngredient()"
+        >
+          Add ingredient
+        </button>
+      </div>
+    </div>
+    <fieldset class="form-group">
+      <legend class="mt-4">Choose category</legend>
+      <div class="form-check">
+        <input
+          class="form-check-input"
+          type="radio"
+          name="category"
+          id="category-appetizer"
+          value="Appetizer"
+          (change)="categoryChanged($event)"
+          checked
+        />
+        <label class="form-check-label" for="category-appetizer">
+          Appetizer
+        </label>
+      </div>
+      <div class="form-check">
+        <input
+          class="form-check-input"
+          type="radio"
+          name="category"
+          id="category-main-course"
+          value="Main Course"
+          (change)="categoryChanged($event)"
+        />
+        <label class="form-check-label" for="category-main-course">
+          Main Course
+        </label>
+      </div>
+      <div class="form-check">
+        <input
+          class="form-check-input"
+          type="radio"
+          name="category"
+          id="category-dessert"
+          value="Dessert"
+          (change)="categoryChanged($event)"
+        />
+        <label class="form-check-label" for="category-dessert"> Dessert </label>
+      </div>
+    </fieldset>
+    <input
+      type="submit"
+      value="Add item"
+      class="btn btn-primary my-3 p-2"
+      style="min-width: 15vw"
+    />
+  </form>
+</div>
