@@ -4,6 +4,7 @@ import { AuthService } from '../auth.service';
 import { MenuItem } from '../menu-item';
 import { ValidateService } from '../validate.service';
 import { FlashMessagesService } from 'flash-messages-angular';
+import { ApiService } from '../api.service';
 
 @Component({
   selector: 'app-menu',
@@ -22,6 +23,7 @@ export class MenuComponent implements OnInit {
 
   constructor(
     private authService: AuthService,
+    private apiService: ApiService,
     private validateService: ValidateService,
     private flashMessagesService: FlashMessagesService
   ) {}
@@ -35,7 +37,7 @@ export class MenuComponent implements OnInit {
       console.error(err);
     };
 
-    this.authService.getMenuItems().subscribe({
+    this.apiService.getMenuItems().subscribe({
       next: onSuccess,
       error: onError,
     });
@@ -106,7 +108,7 @@ export class MenuComponent implements OnInit {
       this.showFlashMessageAlert(err?.msg);
     };
 
-    this.authService.addMenuItem(this.newItem).subscribe({
+    this.apiService.postMenuItem(this.newItem).subscribe({
       next: onSuccess,
       error: onError,
     });
@@ -125,7 +127,7 @@ export class MenuComponent implements OnInit {
       this.showFlashMessageAlert('Something went wrong.');
     };
 
-    this.authService.deleteMenuItem(item).subscribe({
+    this.apiService.deleteMenuItem(item).subscribe({
       next: onSuccess,
       error: onError,
     });

@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 
 import { FlashMessagesService } from 'flash-messages-angular';
+import { ApiService } from '../api.service';
 import { AuthService } from '../auth.service';
 
 import { User } from '../user';
@@ -15,7 +16,8 @@ export class LoginComponent implements OnInit {
 
   constructor(
     private flashMessagesService: FlashMessagesService,
-    private authService: AuthService
+    private authService: AuthService,
+    private apiService: ApiService
   ) {}
 
   ngOnInit(): void {}
@@ -54,7 +56,7 @@ export class LoginComponent implements OnInit {
       this.authService.storeAuthenticatedUser(value.user, value.token);
     };
 
-    this.authService.authenticateUser(this.user).subscribe({
+    this.apiService.authenticate(this.user).subscribe({
       next: onSuccess,
       error: onError,
     });

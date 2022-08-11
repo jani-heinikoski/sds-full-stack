@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { AuthService } from '../auth.service';
+import { ApiService } from '../api.service';
 import { User } from '../user';
 
 @Component({
@@ -10,7 +10,7 @@ import { User } from '../user';
 export class ProfileComponent implements OnInit {
   user?: User;
 
-  constructor(private authService: AuthService) {}
+  constructor(private apiService: ApiService) {}
 
   ngOnInit(): void {
     const onSuccess = (res: any) => {
@@ -21,7 +21,7 @@ export class ProfileComponent implements OnInit {
       console.error(err);
     };
 
-    this.authService.getProfile().subscribe({
+    this.apiService.getProfile().subscribe({
       next: onSuccess,
       error: onError,
     });

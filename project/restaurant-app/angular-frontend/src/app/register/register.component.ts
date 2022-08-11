@@ -3,7 +3,7 @@ import { Router } from '@angular/router';
 
 import { ValidateService } from '../validate.service';
 import { FlashMessagesService } from 'flash-messages-angular';
-import { AuthService } from '../auth.service';
+import { ApiService } from '../api.service';
 
 import { User } from '../user';
 
@@ -18,7 +18,7 @@ export class RegisterComponent implements OnInit {
   constructor(
     private validateService: ValidateService,
     private flashMessagesService: FlashMessagesService,
-    private authService: AuthService,
+    private apiService: ApiService,
     private router: Router
   ) {}
 
@@ -61,7 +61,7 @@ export class RegisterComponent implements OnInit {
       this.router.navigate(['login']);
     };
 
-    this.authService.registerUser(this.user).subscribe({
+    this.apiService.register(this.user).subscribe({
       next: onSuccess,
       error: onError,
     });

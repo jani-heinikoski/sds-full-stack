@@ -1,12 +1,7 @@
 import { Injectable } from '@angular/core';
 import { JwtHelperService } from '@auth0/angular-jwt';
 
-import { HttpClient, HttpHeaders } from '@angular/common/http';
-import { Observable, of } from 'rxjs';
-
 import { User } from './user';
-import { BaseURLService } from './base-url.service';
-import { MenuItem } from './menu-item';
 
 @Injectable({
   providedIn: 'root',
@@ -14,78 +9,23 @@ import { MenuItem } from './menu-item';
 export class AuthService {
   private helper = new JwtHelperService();
 
-  constructor(
-    private http: HttpClient,
-    private baseURLService: BaseURLService
-  ) {}
+  constructor() {}
 
-  registerUser(user: User): Observable<any> {
-    return this.http.post(
-      `${this.baseURLService.getBaseURL()}/user/register`,
-      user,
-      {
-        headers: new HttpHeaders({ 'Content-Type': 'application/json' }),
-      }
-    );
+  public getAuthorizationToken(): string {
+    return `JWT ${window.localStorage.getItem('id_token')}`;
   }
 
-  authenticateUser(user: User): Observable<any> {
-    return this.http.post(
-      `${this.baseURLService.getBaseURL()}/user/authenticate`,
-      user,
-      {
-        headers: new HttpHeaders({ 'Content-Type': 'application/json' }),
-      }
-    );
-  }
-
-  getProfile(): Observable<any> {
-    return this.http.get(`${this.baseURLService.getBaseURL()}/user/profile`, {
-      headers: new HttpHeaders({
-        Authorization: `JWT ${window.localStorage.getItem('id_token')}` ?? '',
-      }),
-    });
-  }
-
-  getMenuItems(): Observable<any> {
-    return this.http.get(`${this.baseURLService.getBaseURL()}/menu/items`);
-  }
-
-  addMenuItem(menuItem: MenuItem): Observable<any> {
-    return this.http.post(
-      `${this.baseURLService.getBaseURL()}/menu/items`,
-      { item: menuItem },
-      {
-        headers: new HttpHeaders({
-          'Content-Type': 'application/json',
-          Authorization: `JWT ${window.localStorage.getItem('id_token')}` ?? '',
-        }),
-      }
-    );
-  }
-
-  deleteMenuItem(menuItem: MenuItem): Observable<any> {
-    return this.http.delete(
-      `${this.baseURLService.getBaseURL()}/menu/items/${menuItem._id}`,
-      {
-        headers: new HttpHeaders({
-          Authorization: `JWT ${window.localStorage.getItem('id_token')}` ?? '',
-        }),
-      }
-    );
-  }
-
-  storeAuthenticatedUser(user: User, token: string): void {
+  public storeAuthenticatedUser(user: User, token: string): void {
     window.localStorage.setItem('id_token', token);
     window.localStorage.setItem('user', JSON.stringify(user));
   }
 
-  removeAuthenticatedUser(): void {
+  public removeAuthenticatedUser(): void {
     window.localStorage.removeItem('id_token');
     window.localStorage.removeItem('user');
   }
 
-  isUserAuthenticated(): boolean {
+  public isUserAuthenticated(): boolean {
     let loggedIn;
     try {
       loggedIn = !this.helper.isTokenExpired(
