@@ -8,8 +8,10 @@ const passport = require("passport");
 
 const userRouter = require("./routes/user");
 const menuRouter = require("./routes/menu");
+const openingHourRouter = require("./routes/opening-hour");
 
 const initPassportJWTStrategy = require("./initPassportJWTStrategy");
+const initOpeningHours = require("./initOpeningHours");
 
 const app = express();
 const PORT = process.env.PORT || 3000;
@@ -25,6 +27,7 @@ app.use(express.static(path.join(__dirname, "public")));
 // Use user defined routers
 app.use("/user", userRouter);
 app.use("/menu", menuRouter);
+app.use("/opening-hour", openingHourRouter);
 // Index route
 app.get("*", (req, res) => {
     res.sendFile(path.join(__dirname, "public/index.html"));
@@ -33,9 +36,17 @@ app.get("*", (req, res) => {
 mongoose.connect(process.env.MONGO_URL).then(
     () => {
         console.log(`Connected successfully to ${process.env.MONGO_URL}`);
-        app.listen(PORT, () => {
-            console.log("Server started on port", PORT);
-        });
+        initOpeningHours().then(
+            () => {
+                app.listen(PORT, () => {
+                    console.log("Server started on port", PORT);
+                });
+            },
+            (err) => {
+                console.error("Failed to initialize opening hours");
+                throw err;
+            }
+        );
     },
     (err) => {
         console.error("Can't connect to MongoDB");
