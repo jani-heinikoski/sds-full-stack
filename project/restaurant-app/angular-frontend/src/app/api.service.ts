@@ -82,6 +82,9 @@ export class ApiService {
   }
 
   public getOpeningHours(): Observable<any> {
-    return new Observable((subscriber: any) => {});
+    return this.http.get(
+      this.createURL('/opening-hour'),
+      this.createHeaders(false, false)
+    );
   }
 }

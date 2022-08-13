@@ -1,7 +1,7 @@
 const express = require("express");
 const passport = require("passport");
 // DB Services
-const getOpeningHours = require("../db/models/opening-hour");
+const getOpeningHours = require("../db/services/opening-hour/getOpeningHours");
 
 const router = express.Router();
 

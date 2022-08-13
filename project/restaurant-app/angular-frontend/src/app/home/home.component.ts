@@ -23,27 +23,18 @@ export class HomeComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
-    // const onSuccess = (res: any) => {
-    //   console.log(res);
-    // };
-
-    // const onError = (err: any) => {
-    //   console.error(err);
-    // };
-
-    // this.apiService.getOpeningHours().subscribe({
-    //   next: onSuccess,
-    //   error: onError,
-    // });
-    this.openingHours = {
-      monday: '16:20',
-      tuesday: '16:20',
-      wednesday: '16:20',
-      thursday: '16:20',
-      friday: '16:20',
-      saturday: '16:20',
-      sunday: '16:20',
+    const onSuccess = (res: any) => {
+      this.openingHours = res.openingHours;
     };
+
+    const onError = (err: any) => {
+      console.error(err);
+    };
+
+    this.apiService.getOpeningHours().subscribe({
+      next: onSuccess,
+      error: onError,
+    });
   }
 
   private showFlashMessageAlert(text: string) {
