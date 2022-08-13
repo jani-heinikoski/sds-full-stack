@@ -33,26 +33,21 @@ app.get("*", (req, res) => {
     res.sendFile(path.join(__dirname, "public/index.html"));
 });
 // Connect to the MongoDB database and start the server after
-mongoose.connect(process.env.MONGO_URL).then(
-    () => {
+mongoose
+    .connect(process.env.MONGO_URL)
+    .then(() => {
         console.log(`Connected successfully to ${process.env.MONGO_URL}`);
-        initOpeningHours().then(
-            () => {
-                app.listen(PORT, () => {
-                    console.log("Server started on port", PORT);
-                });
-            },
-            (err) => {
-                console.error("Failed to initialize opening hours");
-                throw err;
-            }
-        );
-    },
-    (err) => {
+        return initOpeningHours();
+    })
+    .then(() => {
+        app.listen(PORT, () => {
+            console.log("Server started on port", PORT);
+        });
+    })
+    .catch((err) => {
         console.error("Can't connect to MongoDB");
         throw err;
-    }
-);
+    });
 // Handle errors after initial connection has been established
 mongoose.connection.on("error", (err) => {
     console.error(err);
