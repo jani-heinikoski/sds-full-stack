@@ -12,6 +12,7 @@ const openingHourRouter = require("./routes/opening-hour");
 
 const initPassportJWTStrategy = require("./initPassportJWTStrategy");
 const initOpeningHours = require("./initOpeningHours");
+const initAdminUser = require("./initAdminUser");
 
 const app = express();
 const PORT = process.env.PORT || 3000;
@@ -40,12 +41,17 @@ mongoose
         return initOpeningHours();
     })
     .then(() => {
+        console.log("Initialized opening hours");
+        return initAdminUser();
+    })
+    .then(() => {
+        console.log("Initialized admin user");
         app.listen(PORT, () => {
             console.log("Server started on port", PORT);
         });
     })
     .catch((err) => {
-        console.error("Can't connect to MongoDB");
+        console.error("Database initialization failed.");
         throw err;
     });
 // Handle errors after initial connection has been established

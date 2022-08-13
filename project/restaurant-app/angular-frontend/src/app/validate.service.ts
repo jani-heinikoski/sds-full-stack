@@ -9,12 +9,6 @@ import { User } from './user';
 export class ValidateService {
   constructor() {}
 
-  validateRegister(user: User): boolean {
-    return user && user.name && user.username && user.email && user.password
-      ? true
-      : false;
-  }
-
   validateEmail(email?: String): boolean {
     return String(email)
       .toLowerCase()
@@ -33,6 +27,12 @@ export class ValidateService {
       menuItem.category &&
       menuItem.price != undefined &&
       menuItem.price >= 0
+      ? true
+      : false;
+  }
+
+  validateNewCredentials(user: User): boolean {
+    return user && user.username?.length && user.password?.length
       ? true
       : false;
   }

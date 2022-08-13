@@ -1,33 +1,12 @@
 const express = require("express");
 const jsonwebtoken = require("jsonwebtoken");
 const passport = require("passport");
-// DB Models
-const User = require("../db/models/user");
 // DB Services
-const addUser = require("../db/services/user/addUser");
 const getUserByUsername = require("../db/services/user/getUserByUsername");
 const comparePassword = require("../db/services/user/comparePassword");
+const updateUser = require("../db/services/user/updateUser");
 
 const router = express.Router();
-
-router.post("/register", async (req, res) => {
-    try {
-        await addUser(
-            new User({
-                name: req.body.name,
-                email: req.body.email,
-                username: req.body.username,
-                password: req.body.password,
-            })
-        );
-    } catch (err) {
-        console.error(err);
-        return res
-            .status(400)
-            .json({ success: false, msg: "Failed to register user." });
-    }
-    return res.status(201).json({ success: true, msg: "User registered." });
-});
 
 router.post("/authenticate", async (req, res) => {
     try {
@@ -46,9 +25,7 @@ router.post("/authenticate", async (req, res) => {
                 msg: "User authenticated.",
                 user: {
                     _id: user._id,
-                    name: user.name,
                     username: user.username,
-                    email: user.email,
                 },
                 token,
             });
@@ -61,19 +38,30 @@ router.post("/authenticate", async (req, res) => {
         .json({ success: false, msg: "Failed to authenticate." });
 });
 
-router.get(
-    "/profile",
+router.put(
+    "/update-credentials",
     passport.authenticate("jwt", { session: false }),
-    (req, res) => {
-        return res.status(200).json({
-            success: true,
-            msg: "You are authorized.",
-            profile: {
-                name: req.user.name,
-                username: req.user.username,
-                email: req.user.email,
-            },
-        });
+    async (req, res) => {
+        try {
+            const updatedUser = await updateUser(
+                req.user,
+                req.body.username,
+                req.body.password
+            );
+            return res.status(200).json({
+                success: true,
+                msg: "Credentials updated",
+                user: {
+                    _id: updatedUser._id,
+                    username: updatedUser.username,
+                },
+            });
+        } catch (err) {
+            console.error(err);
+        }
+        return res
+            .status(400)
+            .json({ success: false, msg: "Failed to update credentials." });
     }
 );
 

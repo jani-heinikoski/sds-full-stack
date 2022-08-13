@@ -65,7 +65,7 @@
 <div *ngIf="isUserAuthenticated()">
   <hr class="border border-primary border-1 opacity-100 my-5" />
   <h2 class="mb-4">Add items to menu</h2>
-  <form (submit)="addItem()">
+  <form (keyup)="handleKeyUp($event)">
     <div class="form-group my-3">
       <label for="menu-newitem-name-input">Name</label>
       <input
@@ -106,7 +106,7 @@
           </ul>
         </div>
       </div>
-      <div class="form-group">
+      <fieldset class="form-group">
         <label for="new-ingredient-input">Ingredient</label>
         <input
           id="new-ingredient-input"
@@ -123,7 +123,7 @@
         >
           Add ingredient
         </button>
-      </div>
+      </fieldset>
     </div>
     <fieldset class="form-group">
       <legend class="mt-4">Choose category</legend>
@@ -134,7 +134,7 @@
           name="category"
           id="category-appetizer"
           value="Appetizer"
-          (change)="categoryChanged($event)"
+          [(ngModel)]="newItem.category"
           checked
         />
         <label class="form-check-label" for="category-appetizer">
@@ -148,7 +148,7 @@
           name="category"
           id="category-main-course"
           value="Main Course"
-          (change)="categoryChanged($event)"
+          [(ngModel)]="newItem.category"
         />
         <label class="form-check-label" for="category-main-course">
           Main Course
@@ -161,16 +161,17 @@
           name="category"
           id="category-dessert"
           value="Dessert"
-          (change)="categoryChanged($event)"
+          [(ngModel)]="newItem.category"
         />
         <label class="form-check-label" for="category-dessert"> Dessert </label>
       </div>
     </fieldset>
     <input
-      type="submit"
+      type="button"
       value="Add item"
       class="btn btn-primary my-3 p-2"
       style="min-width: 15vw"
+      (click)="addItem()"
     />
   </form>
 </div>

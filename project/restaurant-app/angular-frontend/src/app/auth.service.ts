@@ -20,6 +20,10 @@ export class AuthService {
     window.localStorage.setItem('user', JSON.stringify(user));
   }
 
+  public updateAuthenticatedUser(user: User): void {
+    window.localStorage.setItem('user', JSON.stringify(user));
+  }
+
   public removeAuthenticatedUser(): void {
     window.localStorage.removeItem('id_token');
     window.localStorage.removeItem('user');

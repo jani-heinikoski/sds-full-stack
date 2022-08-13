@@ -102,6 +102,7 @@ export class MenuComponent implements OnInit {
     const onSuccess = (res: any) => {
       this.showFlashMessageSuccess(res?.msg);
       this.items?.push(res?.item);
+      this.clearNewItemForm();
     };
 
     const onError = (err: any) => {
@@ -133,11 +134,27 @@ export class MenuComponent implements OnInit {
     });
   }
 
-  categoryChanged(e: any) {
-    this.newItem.category = e.target.value;
-  }
-
   isUserAuthenticated(): boolean {
     return this.authService.isUserAuthenticated();
+  }
+
+  handleKeyUp(e: any) {
+    if (e.key === 'Enter') {
+      switch (e.target.id) {
+        case 'new-ingredient-input':
+          this.addIngredient();
+          break;
+      }
+    }
+  }
+
+  clearNewItemForm(): void {
+    this.newIngredient = '';
+    this.newItem = {
+      name: '',
+      price: 0,
+      ingredients: [],
+      category: 'Appetizer',
+    };
   }
 }

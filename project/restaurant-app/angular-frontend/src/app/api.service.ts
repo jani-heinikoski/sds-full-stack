@@ -48,18 +48,11 @@ export class ApiService {
     );
   }
 
-  public register(user: User): Observable<any> {
-    return this.http.post(
-      this.createURL('/user/register'),
+  public updateUserCredentials(user: User): Observable<any> {
+    return this.http.put(
+      this.createURL('/user/update-credentials'),
       user,
-      this.createHeaders(true, false)
-    );
-  }
-
-  public getProfile(): Observable<any> {
-    return this.http.get(
-      this.createURL('/user/profile'),
-      this.createHeaders(false, true)
+      this.createHeaders(true, true)
     );
   }
 

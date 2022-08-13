@@ -37,10 +37,10 @@
         <li *ngIf="isUserAuthenticated()" class="nav-item">
           <a
             class="nav-link"
-            routerLink="/profile"
+            routerLink="/change-credentials"
             routerLinkActive="active"
             [routerLinkActiveOptions]="{ exact: true }"
-            >Profile</a
+            >Change Credentials</a
           >
         </li>
         <li *ngIf="!isUserAuthenticated()" class="nav-item">
@@ -50,15 +50,6 @@
             routerLinkActive="active"
             [routerLinkActiveOptions]="{ exact: true }"
             >Login</a
-          >
-        </li>
-        <li *ngIf="!isUserAuthenticated()" class="nav-item">
-          <a
-            class="nav-link"
-            routerLink="/register"
-            routerLinkActive="active"
-            [routerLinkActiveOptions]="{ exact: true }"
-            >Register</a
           >
         </li>
         <li *ngIf="isUserAuthenticated()" class="nav-item">
