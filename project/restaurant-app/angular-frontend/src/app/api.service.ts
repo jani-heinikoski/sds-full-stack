@@ -7,6 +7,7 @@ import { AuthService } from './auth.service';
 
 import { User } from './user';
 import { MenuItem } from './menu-item';
+import { OpeningHours } from './opening-hours';
 
 @Injectable({
   providedIn: 'root',
@@ -85,6 +86,16 @@ export class ApiService {
     return this.http.get(
       this.createURL('/opening-hour'),
       this.createHeaders(false, false)
+    );
+  }
+
+  public updateOpeningHours(
+    updatedOpeningHours: OpeningHours
+  ): Observable<any> {
+    return this.http.put(
+      this.createURL('/opening-hour'),
+      { openingHours: updatedOpeningHours },
+      this.createHeaders(true, true)
     );
   }
 }

@@ -67,10 +67,29 @@ export class HomeComponent implements OnInit {
       this.selectedDay !== '' &&
       this.openingHours
     ) {
-      this.openingHours[this.selectedDay] = this.openingHour;
-      this.showFlashMessageSuccess('Opening hour changed!');
-      this.openingHour = '';
-      this.selectedDay = '';
+      const onSuccess = (res: any) => {
+        this.openingHours = res.openingHours;
+        this.showFlashMessageSuccess('Opening hour changed!');
+        this.openingHour = '';
+        this.selectedDay = '';
+      };
+
+      const onError = (err: any) => {
+        this.showFlashMessageAlert(
+          'Something went wrong, see console for more information...'
+        );
+        console.error(err);
+      };
+
+      const updatedOpeningHours: OpeningHours = {
+        ...this.openingHours,
+      };
+      updatedOpeningHours[this.selectedDay] = this.openingHour;
+
+      this.apiService.updateOpeningHours(updatedOpeningHours).subscribe({
+        next: onSuccess,
+        error: onError,
+      });
     } else {
       this.showFlashMessageAlert(
         'Error: make sure you have selected a day and entered an opening hour'
@@ -78,8 +97,9 @@ export class HomeComponent implements OnInit {
     }
   }
 
-  getOpeningHoursKeys(): string[] {
-    return Object.keys(this.openingHours || {});
+  getOpeningHoursKeys(excludeId: boolean): string[] {
+    const keys = Object.keys(this.openingHours || {});
+    return excludeId ? keys.filter((value) => value !== '_id') : keys;
   }
 
   isUserAuthenticated(): boolean {
