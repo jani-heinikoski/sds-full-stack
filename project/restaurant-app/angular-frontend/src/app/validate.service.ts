@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
-import { MenuItem } from './menu-item';
 
+import { MenuItem } from './menu-item';
 import { User } from './user';
 
 @Injectable({
