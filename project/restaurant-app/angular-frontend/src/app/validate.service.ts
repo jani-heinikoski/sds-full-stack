@@ -31,7 +31,7 @@ export class ValidateService {
       : false;
   }
 
-  validateNewCredentials(user: User): boolean {
+  validateCredentials(user: User): boolean {
     return user && user.username?.length && user.password?.length
       ? true
       : false;

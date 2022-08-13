@@ -50,7 +50,7 @@ export class ChangeCredentialsComponent implements OnInit {
   }
 
   changeCredentials(): void {
-    if (this.validateService.validateNewCredentials(this.user)) {
+    if (this.validateService.validateCredentials(this.user)) {
       const onSuccess = (res: any) => {
         console.log(res);
         this.showFlashMessageSuccess('Credentials updated successfully');

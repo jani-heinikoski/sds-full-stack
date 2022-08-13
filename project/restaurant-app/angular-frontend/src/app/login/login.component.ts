@@ -4,6 +4,7 @@ import { Router } from '@angular/router';
 import { FlashMessagesService } from 'flash-messages-angular';
 import { ApiService } from '../api.service';
 import { AuthService } from '../auth.service';
+import { ValidateService } from '../validate.service';
 
 import { User } from '../user';
 
@@ -13,10 +14,14 @@ import { User } from '../user';
   styleUrls: ['./login.component.css'],
 })
 export class LoginComponent implements OnInit {
-  user: User = {};
+  user: User = {
+    username: '',
+    password: '',
+  };
 
   constructor(
     private flashMessagesService: FlashMessagesService,
+    private validateService: ValidateService,
     private authService: AuthService,
     private apiService: ApiService,
     private router: Router
@@ -48,7 +53,12 @@ export class LoginComponent implements OnInit {
     });
   }
 
-  onLoginSubmit() {
+  onLoginSubmit(): void {
+    if (!this.validateService.validateCredentials(this.user)) {
+      this.showFlashMessageAlert('Username or password is empty');
+      return;
+    }
+
     const onError = (err: any): void => {
       this.showFlashMessageAlert('Wrong username or password');
     };
