@@ -27,7 +27,7 @@ The course project can be found under */project*.
 Idea for the course project was to create a full stack web application for restaurants on top of the MEAN-stack.
 The application is intended to be a basic template that can be customized on demand for potential customers.
 The project is based on the application developed in the *MEAN-stack* coursework module.
-All commits starting with *project:* are related to the course project.
+All commits starting with *project:* are related to the course project. [Here is a link to the demonstration video](https://lut-my.sharepoint.com/:v:/g/personal/jani_heinikoski_student_lut_fi/EUtd0kwm-J1DvOhmmGwOzEcBWJKs1lX6nD4LdaVYQd_E4Q?e=SzAhgp), it covers the installation process briefly and showcases the most important features and usage.
 
 #### Features
 
