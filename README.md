@@ -51,7 +51,7 @@ ng build
     * Create a file called .env in the `<repository-directory>/project/restaurant-app` directory. The key-value pairs in this file are loaded into environment variables when the application starts. You may also set the environment variables directly as you see fit. You can modify the application with the following environment variables:
         * `MONGO_URL` - Connection string to the MongoDB database which the application uses.
         * `SECRET` - Secret key used to generate JWT tokens. Do not share this key with anyone.
-        * `PORT` - The backend HTTP listens to `PORT` (default 3000).
+        * `PORT` - The backend HTTP listens to `PORT` (default 3000). Note: if you change the port from the default 3000, change it also in the BaseURL service of the Angular frontend and build the frontend again by running the `ng build` command in the `/project/restaurant-app/angular-frontend` directory.
         * `ADMIN_USERNAME` - The default admin account username which is created when the backend is started for the first time (default admin).
         * `ADMIN_PWD` - The default admin account password which is created when the backend is started for the first time (default password).
     * Run `npm start` in the `<repository-directory>/project/restaurant-app` directory.
@@ -65,7 +65,7 @@ No users found, creating default admin...
 Initialized admin user
 Server started on port <PORT>
 ```
-An example .env file:
+An example .env file (note that the port 3200 needs to be also set in the BaseURL service):
 ```
 MONGO_URL=mongodb://localhost:27017/restaurant-app-test
 SECRET=my_super_secret_key
