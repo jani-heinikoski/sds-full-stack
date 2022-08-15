@@ -33,7 +33,7 @@ All commits starting with *project:* are related to the course project.
 
 The project has the following features (and much more):
 * Secure JWT authentication and authorization implemented with [Passport](https://www.passportjs.org/) (specifically using the [passport-jwt](http://www.passportjs.org/packages/passport-jwt/) strategy).
-* Easily customizable menu and opening hours; when the application is sold to the customer, they are given access to an administrator account which can be used to customize the menu and the opening hours.
+* Easily customizable menu and opening hours; when the application is tailored for the customer, they are given access to an administrator account which can be used to customize the menu and opening hours. Note: customer should change the admin account credentials.
 
 #### Installation and usage
 
@@ -43,7 +43,7 @@ To install the project, first ensure that you meet the requirements specified in
 ```
 cd <repository-directory>/project/restaurant-app
 npm install
-cd ./angular-frontend
+cd angular-frontend
 npm install
 ng build
 ```
@@ -55,7 +55,7 @@ ng build
         * `ADMIN_USERNAME` - The default admin account username which is created when the backend is started for the first time (default admin).
         * `ADMIN_PWD` - The default admin account password which is created when the backend is started for the first time (default password).
     * Run `npm start` in the `<repository-directory>/project/restaurant-app` directory.
-
+    
 After starting the application for the first time you should get the following response in your command line:
 ```
 Connected successfully to <MONGO_URL>
@@ -73,3 +73,10 @@ PORT=3200
 ADMIN_USERNAME=username
 ADMIN_PWD=pwd
 ```
+
+4. How to modify the opening hours / menu / admin credentials
+   * First login to the administrator account by: 1. navigating to the login screen by clicking the login button on the application's top navigation bar 2. entering the credentials into the login form 3. clicking the login button.
+   * After you have logged in as the administrator, you can:
+      * navigate to the home page and scroll to the bottom of the page to modify opening hours.
+      * navigate to the menu page and scroll to the bottom of the page to modify the menu.
+      * navigate to the change credentials page to change the admin account's login credentials.
