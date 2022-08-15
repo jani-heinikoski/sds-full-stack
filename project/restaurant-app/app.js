@@ -15,6 +15,8 @@ const initOpeningHours = require("./initOpeningHours");
 const initAdminUser = require("./initAdminUser");
 
 const app = express();
+// If you change the PORT env var, change it also on the frontend
+// by modifying the base URL in the BaseURL service.
 const PORT = process.env.PORT || 3000;
 // Initialize passport
 app.use(passport.initialize());
