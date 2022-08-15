@@ -65,7 +65,7 @@ No users found, creating default admin...
 Initialized admin user
 Server started on port <PORT>
 ```
-An example .env file:
+An example .env file (note that the port 3200 needs to be also set in the BaseURL service):
 ```
 MONGO_URL=mongodb://localhost:27017/restaurant-app-test
 SECRET=my_super_secret_key
