@@ -68,7 +68,7 @@ Server started on port <PORT>
 An example .env file:
 ```
 MONGO_URL=mongodb://localhost:27017/restaurant-app-test
-SECRET=kaisunsalaisuudet!!!!
+SECRET=my_super_secret_key
 PORT=3200
 ADMIN_USERNAME=username
 ADMIN_PWD=pwd
