@@ -74,6 +74,12 @@ ADMIN_USERNAME=username
 ADMIN_PWD=pwd
 ```
 
+Minimal example .env file:
+```
+MONGO_URL=mongodb://localhost:27017/restaurant-app-test
+SECRET=my_super_secret_key
+```
+
 4. How to modify the opening hours / menu / admin credentials
    * First login to the administrator account by: 1. navigating to the login screen by clicking the login button on the application's top navigation bar 2. entering the credentials into the login form 3. clicking the login button.
    * After you have logged in as the administrator, you can:
